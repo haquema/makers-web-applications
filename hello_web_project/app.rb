@@ -14,6 +14,10 @@ class Application < Sinatra::Base
     return "Hello #{name}"
   end
 
+  get '/names' do
+    return "Julia, Mary, Karim"
+  end
+
   post '/submit' do
     name = params[:name]
     message = params[:message]
