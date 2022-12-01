@@ -60,12 +60,13 @@ describe Application do
   let(:app) { Application.new }
 
   context "GET /" do
-    it 'returns 200 OK' do
+    it 'returns a list of the albums as comma separated string' do
       response = get('albums') do
 
       expected_response = "Doolittle,Surfer Rosa,Waterloo,Super Trouper,Bossanova,Lover,Folklore,I Put a Spell on You,Baltimore,Here Comes the Sun,Fodder on My Wings,Ring Ring"
 
-      expect(response).to eq expected_response
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(expected_response)
     end
   end
 end
