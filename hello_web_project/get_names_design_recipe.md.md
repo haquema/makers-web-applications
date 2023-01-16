@@ -13,7 +13,7 @@ You'll need to include:
 Return a list of names
 Method: GET
 Path: /names
-Query parameters:
+Query parameters: none
   
 
 ## 2. Design the Response
@@ -27,9 +27,11 @@ Your response might return plain text, JSON, or HTML code.
 _Replace the below with your own design. Think of all the different possible responses your route will return._
 
 
-```
+<!-- EXAMPLE 1 -->
+```````````````
 Julia, Mary, Karim
-```
+```````````````
+
 ## 3. Write Examples
 
 _Replace these with your own design._
@@ -41,7 +43,7 @@ GET /names
 
 # Expected response:
 
-Julia, Mary, Karim
+200 OK
 ```
 
 ## 4. Encode as Tests Examples

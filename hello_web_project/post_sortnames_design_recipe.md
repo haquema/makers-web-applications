@@ -10,6 +10,7 @@ You'll need to include:
   * any query parameters (passed in the URL)
   * or body parameters (passed in the request body)
 
+_Recieve a list of names as comma separated string and return the same list, sorted alphabetically_
 method: POST
 path: /sort-names
 body params:
