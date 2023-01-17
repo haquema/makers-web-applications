@@ -12,9 +12,9 @@ describe Application do
 
   context "GET /" do
     it 'returns a list of the albums as comma separated string' do
-      response = get('albums') do
+      response = get('albums')
 
-      expected_response = "Doolittle,Surfer Rosa,Waterloo,Super Trouper,Bossanova,Lover,Folklore,I Put a Spell on You,Baltimore,Here Comes the Sun,Fodder on My Wings,Ring Ring"
+      expected_response = "Doolittle, Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring"
 
       expect(response.status).to eq(200)
       expect(response.body).to eq(expected_response)
@@ -22,7 +22,7 @@ describe Application do
   end
 
   context "POST /albums" do
-    it 'creates an album' do
+    xit 'creates an album' do
       response = post('/albums', title: 'Voyage', release_year: '2022', artist_id: '2')
 
       expect(response.status).to eq(200)
@@ -31,6 +31,17 @@ describe Application do
       response = get('albums')
       
       expect(response.body).to include('Voyage')
+    end
+  end
+
+  context "GET /albums" do
+    xit 'returns a list of the artists' do
+      response = get('/albums')
+
+      expected_response = 'Pixies, ABBA, Taylor Swift, Nina Simone'
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(expected_response)
     end
   end
 

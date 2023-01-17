@@ -20,7 +20,7 @@ class Application < Sinatra::Base
 
     response = albums.map do |album|
       album.title
-    end.join(",")
+    end.join(", ")
 
     return response
   end
@@ -37,3 +37,4 @@ class Application < Sinatra::Base
     return ''
   end
 end
+
