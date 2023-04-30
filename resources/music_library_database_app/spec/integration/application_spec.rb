@@ -64,8 +64,8 @@ describe Application do
   end
 
   context "GET /albums/:id" do
-    xit "it returns the the correct album details for a given id" do
-      response get('/albums/1')
+    it "it returns the the Doolittle album" do
+      response = get('/albums/1')
 
       expect(response.status).to eq (200)
       expect(response.body).to include("<h1>Doolittle</h1>")
