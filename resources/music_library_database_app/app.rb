@@ -25,6 +25,18 @@ class Application < Sinatra::Base
     return response
   end
 
+  get '/artists' do
+    repo = ArtistRepository.new
+    artists = repo.all
+    response = []
+
+    artists.each do |artist|
+      response << artist.name
+    end
+    
+    return response.join(", ")
+  end
+
   post '/albums' do
     repo = AlbumRepository.new
     new_album = Album.new

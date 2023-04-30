@@ -2,6 +2,7 @@ require "spec_helper"
 require "rack/test"
 require_relative '../../app'
 
+
 describe Application do
   # This is so we can use rack-test helper methods.
   include Rack::Test::Methods
@@ -9,6 +10,12 @@ describe Application do
   # We need to declare the `app` value by instantiating the Application
   # class so our tests work.
   let(:app) { Application.new }
+
+  before(:each) do
+    seed_sql = File.read('spec/seeds/music_library.sql')
+    connection = PG.connect({ host: '127.0.0.1', dbname: 'music_library_test' })
+    connection.exec(seed_sql)
+  end
 
   context "GET /" do
     it 'returns a list of the albums as comma separated string' do
@@ -34,9 +41,9 @@ describe Application do
     end
   end
 
-  context "GET /albums" do
-    xit 'returns a list of the artists' do
-      response = get('/albums')
+  context "GET /artists" do
+    it 'returns a list of the artists' do
+      response = get('/artists')
 
       expected_response = 'Pixies, ABBA, Taylor Swift, Nina Simone'
 
@@ -45,4 +52,14 @@ describe Application do
     end
   end
 
+  context "GET /albums/:id" do
+    xit "it returns the the correct album details for a given id" do
+      response get('/albums/1')
+
+      expect(response.status).to eq (200)
+      expect(response.body).to include("<h1>Doolittle</h1>")
+      expect(response.body).to include("<p>Release year: 1989</p>")
+      expect(response.body).to include("<p>Artist: Pixies</p>")
+    end
+  end
 end

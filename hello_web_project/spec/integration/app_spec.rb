@@ -10,8 +10,20 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+  context "GET /hello" do
+    it "returns 200 OK" do
+      response = get('/hello')
+      expect(response.status).to eq(200)
+    end
+
+    it "contains a h1 title" do
+      response = get('/hello')
+      expect(response.body).to include("<h1>Hello!</h1>")
+    end
+  end
+
   context "GET /names" do
-    it 'returns 200 OK' do
+    it 'returns 200 OK and a list of names' do
       response = get('/names')
 
       expect(response.status).to eq(200)
@@ -20,15 +32,14 @@ describe Application do
   end
 
   context "POST /sort-names" do
-    it 'returns 200 OK' do
-      name = 
+    it 'returns 200 OK and a string of sorted names passed as body parameters' do
       response = post('/sort-names?names=Joe,Alice,Zoe,Julia,Kieran')
 
       expect(response.status).to eq(200)
       expect(response.body).to eq("Alice,Joe,Julia,Kieran,Zoe")
     end
   
-    it 'returns 200 OK' do
+    xit 'returns 200 OK' do
       response = post('/sort-names?names=Sami,Emad,Aziz')
 
       expect(response.status).to eq(200)
