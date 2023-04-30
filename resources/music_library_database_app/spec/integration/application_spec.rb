@@ -29,7 +29,7 @@ describe Application do
   end
 
   context "POST /albums" do
-    xit 'creates an album' do
+    it 'creates an album' do
       response = post('/albums', title: 'Voyage', release_year: '2022', artist_id: '2')
 
       expect(response.status).to eq(200)
@@ -49,6 +49,17 @@ describe Application do
 
       expect(response.status).to eq(200)
       expect(response.body).to eq(expected_response)
+    end
+  end
+
+  context "POST /artists" do
+    it "creates an artist entry in database" do
+      response = post('/artists', name: 'Wild Nothing', genre: 'Indie')
+      expect(response.status).to eq(200)
+      expect(response.body).to eq('')
+
+      response = get('artists')
+      expect(response.body).to include('Wild Nothing')
     end
   end
 
