@@ -21,6 +21,24 @@ class Application < Sinatra::Base
     return erb(:list_albums)
   end
 
+  get '/albums/new' do
+    return erb(:album_form)
+  end
+
+  post '/albums' do
+    title = params[:title]
+    release_year = params[:release_year]
+    artist_id = params[:artist_id]
+
+    album = Album.new
+    album.title = title
+    album.release_year = release_year
+    album.artist_id = artist_id
+    AlbumRepository.new.create(album)
+
+    return erb(:album_created)
+  end
+
   get '/albums/:id' do
     album_id = params[:id]
     album_repo = AlbumRepository.new
@@ -33,34 +51,52 @@ class Application < Sinatra::Base
 
   get '/artists' do
     repo = ArtistRepository.new
-    artists = repo.all
-    response = []
-
-    artists.each do |artist|
-      response << artist.name
-    end
+    @artists = repo.all
     
-    return response.join(", ")
+    return erb(:list_artists)
+  end
+
+  get '/artists/new' do
+    return erb(:artist_form)
   end
 
   post '/artists' do
-    repo = ArtistRepository.new
+    name = params[:name]
+    genre = params[:genre]
+
     artist = Artist.new
-    artist.name = params[:name]
-    artist.genre = params[:genre]
-    repo.create(artist)
+    artist.name = name
+    artist.genre = genre
+    ArtistRepository.new.create(artist)
+
+    return erb(:artist_created)
   end
 
-  post '/albums' do
-    repo = AlbumRepository.new
-    new_album = Album.new
-    new_album.title = params[:title]
-    new_album.release_year = params[:release_year]
-    new_album.artist_id = params[:artist_id]
+  get '/artists/:id' do
+    id = params[:id]
+    @artist = ArtistRepository.new.find(id)
 
-    repo.create(new_album)
-
-    return ''
+    return erb(:artist)
   end
+
+  # post '/artists' do
+  #   repo = ArtistRepository.new
+  #   artist = Artist.new
+  #   artist.name = params[:name]
+  #   artist.genre = params[:genre]
+  #   repo.create(artist)
+  # end
+
+  # post '/albums' do
+  #   repo = AlbumRepository.new
+  #   new_album = Album.new
+  #   new_album.title = params[:title]
+  #   new_album.release_year = params[:release_year]
+  #   new_album.artist_id = params[:artist_id]
+
+  #   repo.create(new_album)
+
+  #   return ''
+  # end
 end
 
